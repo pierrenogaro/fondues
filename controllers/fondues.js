@@ -57,6 +57,16 @@ function update(req, res) {
     res.status(200).json(updatedFondue);
 }
 
+function deleteFondue(req, res) {
+    const id = req.params.id;
+    const fondue = fondues.findIndex(fondue => fondue.id === id);
 
+    if (fondue === -1) {
+        return res.status(404).send('Fondue not found');
+    }
 
-module.exports = { index, show, create, update};
+    fondues.splice(fondue, 1);
+    res.status(200).json('Fondue deleted');
+}
+
+module.exports = { index, show, create, update, deleteFondue};
